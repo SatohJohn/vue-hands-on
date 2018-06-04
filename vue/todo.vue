@@ -2,7 +2,7 @@
     <main>
         <h1>TODO</h1>
         <ul>
-            <li v-for="task in tasks">{{task.name}}</li>
+            <li v-for="task in tasks" keys="task.id">{{task.name}} <span @click="removeTask(task)">×</span></li>
         </ul>
         <input type="text" v-model="taskName">
         <button @click="addTask">タスクを追加する</button>
@@ -10,26 +10,26 @@
 </template>
 
 <script>
+    import {Task} from '../js/task.js';
     export default {
         data() {
             return {
                 tasks: [
-                    { name: 'vueファイルを修正する', id: 1 },
-                    { name: 'タスクを追加する機能を追加する', id: 2 },
-                    { name: 'タスクを削除する機能を追加する', id: 3 },
-                    { name: 'componentを分ける', id: 4 }
+                    new Task('vueファイルを修正する'),
+                    new Task('タスクを追加する機能を追加する'),
+                    new Task('タスクを削除する機能を追加する'),
+                    new Task('componentを分ける')
                 ],
-                taskName: '',
-                nextId: 5
+                taskName: ''
             }
         },
         methods: {
             addTask() {
-                this.tasks.push({
-                    name: this.taskName,
-                    id: this.nextId++
-                });
+                this.tasks.push(new Task(this.taskName));
                 this.taskName = '';
+            },
+            removeTask(task) {
+                this.tasks = this.tasks.filter(t => !t.equals(task));
             }
         }
     }
