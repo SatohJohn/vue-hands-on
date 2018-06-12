@@ -1,6 +1,6 @@
 <template>
     <ul>
-        <li v-for="task in tasks" keys="task.id">{{task.name}} <span @click="removeTask(task)">×</span></li>
+        <router-link :to="{ name: 'detail'}" tag="li" v-for="task in tasks" keys="task.id">{{task.name}} <span @click="removeTask(task)">×</span></router-link>
     </ul>
 </template>
 
