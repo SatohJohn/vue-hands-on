@@ -1,9 +1,7 @@
 <template>
     <main>
         <h1>TODO</h1>
-        <ul>
-            <li v-for="task in tasks" keys="task.id">{{task.name}} <span @click="removeTask(task)">×</span></li>
-        </ul>
+        <TaskListComponent :tasks="tasks" @removeTask="removeTask" />
         <input type="text" v-model="taskName">
         <button @click="addTask">タスクを追加する</button>
     </main>
@@ -11,7 +9,11 @@
 
 <script>
     import {Task} from '../js/task.js';
+    import TaskListComponent from './taskList.vue';
     export default {
+        components: {
+            TaskListComponent
+        },
         data() {
             return {
                 tasks: [
