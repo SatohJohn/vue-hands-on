@@ -1,6 +1,6 @@
 <template>
     <ul>
-        <router-link :to="{ name: 'detail'}" tag="li" v-for="task in tasks" keys="task.id">{{task.name}} <span @click="removeTask(task)">×</span></router-link>
+        <li v-for="task in tasks" keys="task.id"><router-link :to="{ name: 'detail', params:{id: task.id} }" tag="span" >{{task.name}}</router-link> <span @click.self="removeTask(task)">×</span></li>
     </ul>
 </template>
 
@@ -8,7 +8,9 @@
     export default {
         methods: {
             removeTask(task) {
-                this.$emit('removeTask', task);
+                this.$store.commit('removeTask', {
+                    task: task
+                });
             }
         },
         props: {
