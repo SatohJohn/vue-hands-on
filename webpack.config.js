@@ -7,6 +7,7 @@ module.exports = {
     plugins: [
         new VueLoaderPlugin()
     ],
+    mode: 'development',
     module: {
         rules: [
             {
