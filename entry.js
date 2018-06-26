@@ -25,6 +25,18 @@ const store = new Vuex.Store({
             state.tasks = state.tasks.filter(t => !t.equals(params.task));
         }
     },
+    actions: {
+        removeTask({state}, params) {
+            return new Promise((resolve, reject) => {
+                if (state.tasks.find(t => t.equals(params.task)) == null) {
+                    reject();
+                } else {
+            state.tasks = state.tasks.filter(t => !t.equals(params.task));
+                    resolve();
+                }
+            })
+        }
+    },
     getters: {
         getTask(state) {
             return (id) => state.tasks.find(t => t.id == id);
